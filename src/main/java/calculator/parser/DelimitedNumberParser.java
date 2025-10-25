@@ -4,8 +4,6 @@ import calculator.DelimiterConfiguration;
 import calculator.DelimiterUtils;
 
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class DelimitedNumberParser {
     private final String delimiterRegex;
