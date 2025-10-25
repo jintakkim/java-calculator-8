@@ -1,5 +1,7 @@
 package calculator.parser;
 
+import calculator.DelimiterConfiguration;
+
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -38,11 +40,10 @@ public class DelimitedNumberParser {
     }
 
     public static class Builder {
-        private static final Set<Character> DEFAULT_DELIMITERS = Set.of(':', ',');
         private final Set<Character> delimiters;
 
         public Builder() {
-            this.delimiters = new HashSet<>(DEFAULT_DELIMITERS);
+            this.delimiters = new HashSet<>(DelimiterConfiguration.DEFAULT_DELIMITERS);
         }
 
         public Builder addDelimiter(char customDelimiter) {
