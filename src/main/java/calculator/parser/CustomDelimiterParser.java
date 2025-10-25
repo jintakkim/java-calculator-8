@@ -12,10 +12,8 @@ public final class CustomDelimiterParser {
 
     public static CustomDelimiterParsedInputContext parse(String text) {
         Matcher matcher = CUSTOM_DELIMITER_PATTERN.matcher(text);
-        DelimitedNumberParser.Builder parserBuilder = DelimitedNumberParser.builder();
         if (matcher.matches()) {
             char customDelimiter = matcher.group(1).charAt(0);
-            parserBuilder.addDelimiter(customDelimiter);
             String numbersText = matcher.group(2);
             return new CustomDelimiterParsedInputContext(customDelimiter, numbersText);
         }
