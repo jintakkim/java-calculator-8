@@ -2,27 +2,21 @@ package calculator;
 
 import camp.nextstep.edu.missionutils.Console;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.List;
 
 public class CliBasedRunner {
-    private static final Pattern CUSTOM_DELIMITER_PATTERN = Pattern.compile("^//(.)\\\\n(.*)$");
-
     public static void run() {
+        Calculator calculator = new Calculator();
         ConsoleWriter.writeStartMessage();
         String text = Console.readLine();
-
-        Matcher matcher = CUSTOM_DELIMITER_PATTERN.matcher(text);
-        Parser.Builder parserBuilder = Parser.builder();
-        String numbersText = text;
-        if (matcher.matches()) {
-            char customDelimiter = matcher.group(1).charAt(0);
-            parserBuilder.addDelimiter(customDelimiter);
-            numbersText = matcher.group(2);
+        CustomDelimiterParsedInputContext context = CustomDelimiterParser.parse(text);
+        Parser.Builder numberParserBuilder = Parser.builder();
+        if(context.customDelimiter() != null) {
+            numberParserBuilder.addDelimiter(context.customDelimiter());
         }
-        Parser parser = parserBuilder.build();
-        Calculator calculator = new Calculator();
-        calculator.add(parser.parse(numbersText));
+        Parser numberParser = numberParserBuilder.build();
+        List<Integer> numbers = numberParser.parse(context.numbersText());
+        calculator.add(numbers);
         ConsoleWriter.writeCalResult(calculator.getSum());
         Console.close();
     }
