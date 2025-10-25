@@ -32,6 +32,16 @@ class ApplicationTest extends NsTest {
         );
     }
 
+    @Test
+    void 음수가_입력되면_그에_맞는_예외_메시지가_출력되어야_한다() {
+        String expectedErrorMessage = "음수값은 허용되지 않습니다.";
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("-1,2,3"))
+                        .isInstanceOf(IllegalArgumentException.class)
+                        .hasMessage(expectedErrorMessage)
+        );
+    }
+
     @Override
     public void runMain() {
         Application.main(new String[]{});
