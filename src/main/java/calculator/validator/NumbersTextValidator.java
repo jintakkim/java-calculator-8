@@ -16,6 +16,9 @@ public class NumbersTextValidator {
         this.invalidCharsRegex = invalidCharsRegex;
     }
 
+    /**
+     * @param customDelimiter 커스텀 딜리미터가 없다면 null을 입력
+     */
     public static NumbersTextValidator create(Character customDelimiter) {
         Set<Character> delimiters = new HashSet<>(DelimiterConfiguration.DEFAULT_DELIMITERS);
         if(customDelimiter != null) delimiters.add(customDelimiter);
