@@ -1,4 +1,4 @@
-package calculator;
+package calculator.parser;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Nested;
