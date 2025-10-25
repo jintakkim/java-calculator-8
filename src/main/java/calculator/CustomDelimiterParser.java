@@ -10,7 +10,7 @@ public final class CustomDelimiterParser {
 
     public static CustomDelimiterParsedInputContext parse(String text) {
         Matcher matcher = CUSTOM_DELIMITER_PATTERN.matcher(text);
-        Parser.Builder parserBuilder = Parser.builder();
+        DelimitedNumberParser.Builder parserBuilder = DelimitedNumberParser.builder();
         if (matcher.matches()) {
             char customDelimiter = matcher.group(1).charAt(0);
             parserBuilder.addDelimiter(customDelimiter);

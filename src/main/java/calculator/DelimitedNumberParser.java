@@ -5,11 +5,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class Parser {
+public class DelimitedNumberParser {
     private final String delimiterRegex;
     private final String invalidCharsRegex;
 
-    private Parser(String delimiterRegex, String invalidCharsRegex) {
+    private DelimitedNumberParser(String delimiterRegex, String invalidCharsRegex) {
         this.delimiterRegex = delimiterRegex;
         this.invalidCharsRegex = invalidCharsRegex;
     }
@@ -51,9 +51,9 @@ public class Parser {
             return this;
         }
 
-        public Parser build() {
+        public DelimitedNumberParser build() {
             String delimitersAsString = getDelimitersAsString(delimiters);
-            return new Parser(buildDelimiterRegex(delimitersAsString), buildInvalidCharsRegex(delimitersAsString));
+            return new DelimitedNumberParser(buildDelimiterRegex(delimitersAsString), buildInvalidCharsRegex(delimitersAsString));
         }
 
         private void validateDelimiter(char delimiter) {
