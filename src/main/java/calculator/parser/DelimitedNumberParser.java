@@ -6,15 +6,12 @@ import calculator.DelimiterUtils;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public class DelimitedNumberParser {
     private final String delimiterRegex;
-    private final String invalidCharsRegex;
 
-    private DelimitedNumberParser(String delimiterRegex, String invalidCharsRegex) {
+    private DelimitedNumberParser(String delimiterRegex) {
         this.delimiterRegex = delimiterRegex;
-        this.invalidCharsRegex = invalidCharsRegex;
     }
 
     public static Builder builder() {
@@ -27,17 +24,9 @@ public class DelimitedNumberParser {
      */
     public List<Integer> parse(String text) {
         if (text.isEmpty()) return Collections.emptyList();
-        validateAllowedCharacters(text);
         return Arrays.stream(text.split(delimiterRegex))
                 .map(Integer::parseInt)
                 .toList();
-    }
-
-    private void validateAllowedCharacters(String text) {
-        Matcher matcher = Pattern.compile(invalidCharsRegex).matcher(text);
-        if (matcher.find()) {
-            throw new IllegalArgumentException("허용되지 않은 문자가 포함되어 있습니다: " + matcher.group());
-        }
     }
 
     public static class Builder {
@@ -55,7 +44,7 @@ public class DelimitedNumberParser {
 
         public DelimitedNumberParser build() {
             String delimitersAsString = DelimiterUtils.getDelimitersAsString(delimiters);
-            return new DelimitedNumberParser(buildDelimiterRegex(delimitersAsString), buildInvalidCharsRegex(delimitersAsString));
+            return new DelimitedNumberParser(buildDelimiterRegex(delimitersAsString));
         }
 
         private void validateDelimiter(char delimiter) {
@@ -63,13 +52,9 @@ public class DelimitedNumberParser {
                 throw new IllegalArgumentException("숫자는 구분자로 사용할 수 없습니다: " + delimiter);
             }
         }
-        
+
         private String buildDelimiterRegex(String delimiters) {
             return "[" + delimiters + "]";
-        }
-
-        private String buildInvalidCharsRegex(String delimiters) {
-            return "[^\\d" + delimiters + "]";
         }
     }
 }
