@@ -10,6 +10,7 @@
 - CliBasedRunner에서 커스텀 딜리미터를 파악하는 로직을 CustomDelimiterParser로 이동 시킨다.
 - 정규식에 캡처링 그룹명을 설정하여 가독성을 높힌다.
 - 기존 Parser 객체명을 DelimitedNumberParser로 구체화한다.
+- DelimitedNumberParser에서 허용되지 않는 문자열 체크로직을 분리한다.
 - DelimitedNumberParser에서 비지니스 로직 validation(음수 체크)를 분리한다.
 - 허용되지 않는 문자를 체크하는 정규식에서 \\d를 사용해서 음수 체크 검사 로직에 도달하기 전에 음수가 걸려 음수를 넣으면 허용되지 않는 문자가 들어있다는 잘못된 예외를 던지는 오류를 수정한다.
 ---
