@@ -1,6 +1,7 @@
 package calculator.parser;
 
 import calculator.DelimiterConfiguration;
+import calculator.DelimiterUtils;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -53,7 +54,7 @@ public class DelimitedNumberParser {
         }
 
         public DelimitedNumberParser build() {
-            String delimitersAsString = getDelimitersAsString(delimiters);
+            String delimitersAsString = DelimiterUtils.getDelimitersAsString(delimiters);
             return new DelimitedNumberParser(buildDelimiterRegex(delimitersAsString), buildInvalidCharsRegex(delimitersAsString));
         }
 
@@ -62,14 +63,7 @@ public class DelimitedNumberParser {
                 throw new IllegalArgumentException("숫자는 구분자로 사용할 수 없습니다: " + delimiter);
             }
         }
-
-        private String getDelimitersAsString(Set<Character> delimiters) {
-            return delimiters.stream()
-                    .map(String::valueOf)
-                    .map(Pattern::quote)
-                    .collect(Collectors.joining());
-        }
-
+        
         private String buildDelimiterRegex(String delimiters) {
             return "[" + delimiters + "]";
         }
